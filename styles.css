@@ -8,17 +8,70 @@ body {
     height: 100vh;
     width: 100%;
     background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .calculator-display {
-    width: 40vw;
+    width: 38vw;
     height: 10vw;
-    border: 10px solid #CFFFE2;
-    border-radius: 10px;
+    border: 15px solid #CFFFE2;
+    border-radius: 15px;
 }
 
 .first-container {
     display: flex;
     justify-content: center;
-    padding: 4vw;
+    padding-bottom: 1.5vw;
+}
+
+.second-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.button { 
+    width: 8.5vw; 
+    height: 5.5vw; 
+    margin: 0.5vw;
+    display: inline-block; 
+    border-radius: 10px; 
+    border: 5px solid #F6F6F6; 
+    background-color: #A2D5C6; 
+    font-family: "Ubuntu", sans-serif; 
+    font-weight: 700; 
+    font-style: normal; 
+    color: hsl(0, 0%, 0%); 
+    font-size: 3.5vw; 
+    box-shadow: 0 6px 15px rgba(200, 200, 200, 0.6); 
+}
+
+.button:hover {
+    color: #F6F6F6;
+    box-shadow: none;
+}
+
+.big-button {
+    width: 18vw; 
+    height: 5.5vw; 
+    margin: 0.5vw;
+    display: inline-block; 
+    border-radius: 10px; 
+    border: 5px solid #F6F6F6; 
+    background-color: #A2D5C6; 
+    font-family: "Ubuntu", sans-serif; 
+    font-weight: 700; 
+    font-style: normal; 
+    color: #000000; 
+    font-size: 3.5vw; 
+    box-shadow: 0 6px 15px rgba(200, 200, 200, 0.6); 
+}
+
+.big-button:hover {
+    color: #F6F6F6;
+    box-shadow: none;
 }
