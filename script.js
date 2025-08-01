@@ -73,3 +73,13 @@ function operate()
     number2 = null
     operator = null
 }
+
+function clear()
+{
+    number1 = null
+    number2 = null
+    operator = null
+    result = null
+}
+
+clearButton.addEventListener("click", clear)
