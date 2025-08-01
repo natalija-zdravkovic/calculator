@@ -17,7 +17,7 @@ body {
 .calculator-display {
     width: 38vw;
     height: 10vw;
-    border: 15px solid #CFFFE2;
+    border: 12px solid #CFFFE2;
     border-radius: 15px;
 }
 
