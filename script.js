@@ -1,59 +1,13 @@
-function opereate(operator, number1, number2)
-{
-    operator(number1, number2)
-}
+let number1 = null
+let number2 = null
+let operator = null
+let result = null
 
-function calculator()
-{
-    //C je uvek omoguceno i resetuje sve
-    //omoguci samo brojeve
-    //kad se klikne broj on postaje number1
-    //ako se klikne jos jedan broj odmah on postaje druga cifra, ...
-    //omoguci i operande i brojeve
-    //operand postaje operator
-    //kad se klikne broj on postaje number2
-    //pozovi funkciju operate kad se klikne operand ili kad se klikne jednako
-    //ispisi rezultat u konzoli
-    //rezultat postaje number1
-    //ponovi sve opet
-}
+const plusButton = document.getElementById("add")
+const minusButton = document.getElementById("substract")
+const multiplyButton = document.getElementById("multiply")
+const divideButton = document.getElementById("divide")
 
-function pickOperator()
-{
+const numberButtons = document.querySelectorAll(".number")
 
-}
-
-function pickNumber()
-{
-
-}
-
-function unableOperators()
-{
-
-}
-
-function enableOperators()
-{
-
-}
-
-function add()
-{
-
-}
-
-function substract()
-{
-
-}
-
-function multiply()
-{
-
-}
-
-function divide()
-{
-
-}
+const clearButton = document.getElementById("clear")
