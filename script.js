@@ -48,3 +48,28 @@ function pickNumber(event)
             operate()
         }
 }
+
+function operate()
+{
+    switch (operator)
+    {
+        case "add":
+            //rezultat tek na = ili sledeci broj
+            result = number1 + number2
+            break
+        case "substract":
+            result = number1 - number2
+            break
+        case "multiply":
+            result = number1 * number2
+            break
+        case "divide":
+            result = number1 / number2
+            break
+    }
+
+    console.log(result)
+    number1 = result
+    number2 = null
+    operator = null
+}
