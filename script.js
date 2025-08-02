@@ -1,12 +1,44 @@
-let number1 = null
-let number2 = null
+//treba da radi i za visecifrene brojeve
+//dodaj back
+//dodaj negativne brojeve 
+//dodaj decimalne brojeve
+//stampa brojeve i rezultat na ekranu
+
+function operate()
+{
+    switch (operator)
+    {
+        case "add":
+            result = number1 + number2
+            break
+        case "substract":
+            result = number1 - number2
+            break
+        case "multiply":
+            result = number1 * number2
+            break
+        case "divide":
+            result = number1 / number2
+            break
+    }
+
+    console.log(result)
+    number1 = result
+    number2 = 0
+    operator = null
+    //blokiraj jednako
+}
+
+let number1 = 0
+let number2 = 0
 let operator = null
-let result = null
+let result = 0
 
 const plusButton = document.getElementById("add")
 const minusButton = document.getElementById("substract")
 const multiplyButton = document.getElementById("multiply")
 const divideButton = document.getElementById("divide")
+const equalButton = document.getElementById("equal")
 
 const numberButtons = document.querySelectorAll(".number")
 
@@ -32,52 +64,42 @@ divideButton.addEventListener("click", function() {
     operator = "divide"
 })
 
+equalButton.addEventListener("click", operate)
+
+function disableOperators()
+{
+
+}
+
+disableOperators()
+
+function enableOperators()
+{
+
+}
 
 function pickNumber(event)
 {
     const pickedNumber = parseInt(event.target.dataset.value)
         console.log(pickedNumber)
-        if (number1 === null)
+        if (operator === null)
         {
-            number1 = pickedNumber
-            //dozvoli operande
+            number1 = number1*10 + pickedNumber
+            //dozvoli operatore
         }
         else
         {
-            number2 = pickedNumber
-            operate()
+            number2 = number2*10 + pickedNumber
+            //dozvoli jednako
         }
 }
 
-function operate()
-{
-    switch (operator)
-    {
-        case "add":
-            //rezultat tek na = ili sledeci broj
-            result = number1 + number2
-            break
-        case "substract":
-            result = number1 - number2
-            break
-        case "multiply":
-            result = number1 * number2
-            break
-        case "divide":
-            result = number1 / number2
-            break
-    }
 
-    console.log(result)
-    number1 = result
-    number2 = null
-    operator = null
-}
 
 function clear()
 {
-    number1 = null
-    number2 = null
+    number1 = 0
+    number2 = 0
     operator = null
     result = null
 }
