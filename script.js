@@ -2,8 +2,6 @@
 // dodaj negativne brojeve 
 // dodaj decimalne brojeve
 // štampa brojeve i rezultat na ekranu *
-// blokiraj i dozvoli sta kad treba *
-// promeni operator kad se klikne umesto =
 // deljenje sa nulom
 
 const equalButton = document.getElementById("equal")
@@ -40,25 +38,48 @@ operatorButtons.forEach(button =>
     })
 })
 
+function clear() 
+{
+    number1 = 0
+    number2 = 0
+    operator = null
+    result = null
+    operatorButtons.disabled = true
+    equalButton.disabled = true
+}
+
 function operate() 
 {
     switch (operator) 
     {
         case "add":
             result = number1 + number2
+            console.log(result)
             break
+
         case "substract":
             result = number1 - number2
+            console.log(result)
             break
+
         case "multiply":
             result = number1 * number2
+            console.log(result)
             break
+            
         case "divide":
-            result = number1 / number2
-            break
+            if (number2 === 0)
+            {
+                console.log("Error")
+                clear()
+            }
+            else
+            {
+                result = number1 / number2
+                console.log(result)
+                break
+            }
     }
-
-    console.log(result)
     number1 = result
     number2 = 0
     equalButton.disabled = true
@@ -73,35 +94,14 @@ function pickNumber(event)
     {
         number1 = number1 * 10 + pickedNumber
         operatorButtons.disabled = false
-        // dozvoli operatore
     } 
 
     else 
     {
         number2 = number2 * 10 + pickedNumber
-        // dozvoli jednako
         equalButton.disabled = false
     }
 }
 
-function clear() 
-{
-    number1 = 0
-    number2 = 0
-    operator = null
-    result = null
-    operatorButtons.disabled = true
-    equalButton.disabled = true
-}
-
-function disableOperators() 
-{
-    
-}
-
-function enableOperators() 
-{
-
-}
 
 
