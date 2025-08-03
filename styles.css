@@ -15,8 +15,8 @@ body {
 }
 
 .calculator-display {
-    width: 38vw;
-    height: 10vw;
+    width: 35vw;
+    height: 8vw;
     border: 12px solid #CFFFE2;
     border-radius: 15px;
 }
@@ -35,8 +35,8 @@ body {
 }
 
 .button { 
-    width: 8.5vw; 
-    height: 5.5vw; 
+    width: 7.5vw; 
+    height: 5vw; 
     margin: 0.5vw;
     display: inline-block; 
     border-radius: 10px; 
@@ -56,8 +56,8 @@ body {
 }
 
 .big-button {
-    width: 18vw; 
-    height: 5.5vw; 
+    width: 16.5vw; 
+    height: 5vw; 
     margin: 0.5vw;
     display: inline-block; 
     border-radius: 10px; 
