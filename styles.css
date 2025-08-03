@@ -19,6 +19,14 @@ body {
     height: 8vw;
     border: 12px solid #CFFFE2;
     border-radius: 15px;
+    color: #F6F6F6;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1vw;
+    font-size: 3.5vw;
+    font-weight: 1000;
+    font-family: 'Orbitron', sans-serif
 }
 
 .first-container {
@@ -42,11 +50,11 @@ body {
     border-radius: 10px; 
     border: 5px solid #F6F6F6; 
     background-color: #A2D5C6; 
-    font-family: "Ubuntu", sans-serif; 
-    font-weight: 700; 
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 1000; 
     font-style: normal; 
     color: hsl(0, 0%, 0%); 
-    font-size: 3.5vw; 
+    font-size: 3vw; 
     box-shadow: 0 6px 15px rgba(200, 200, 200, 0.6); 
 }
 
@@ -63,11 +71,11 @@ body {
     border-radius: 10px; 
     border: 5px solid #F6F6F6; 
     background-color: #A2D5C6; 
-    font-family: "Ubuntu", sans-serif; 
-    font-weight: 700; 
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 1000; 
     font-style: normal; 
     color: #000000; 
-    font-size: 3.5vw; 
+    font-size: 3vw; 
     box-shadow: 0 6px 15px rgba(200, 200, 200, 0.6); 
 }
 

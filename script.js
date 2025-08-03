@@ -1,13 +1,12 @@
 // dodaj back
 // dodaj negativne brojeve 
 // dodaj decimalne brojeve
-// štampa brojeve i rezultat na ekranu *
-// deljenje sa nulom
 
 const equalButton = document.getElementById("equal")
 const numberButtons = document.querySelectorAll(".number")
 const clearButton = document.getElementById("clear")
 const operatorButtons = document.querySelectorAll(".operator")
+const display = document.querySelector(".calculator-display")
 
 let number1 = 0
 let number2 = 0
@@ -46,6 +45,7 @@ function clear()
     result = null
     operatorButtons.disabled = true
     equalButton.disabled = true
+    display.innerHTML = ""
 }
 
 function operate() 
@@ -54,29 +54,29 @@ function operate()
     {
         case "add":
             result = number1 + number2
-            console.log(result)
+            display.innerHTML = result
             break
 
         case "substract":
             result = number1 - number2
-            console.log(result)
+            display.innerHTML = result
             break
 
         case "multiply":
             result = number1 * number2
-            console.log(result)
+            display.innerHTML = result
             break
-            
+
         case "divide":
             if (number2 === 0)
             {
-                console.log("Error")
+                display.innerHTML = "Error"
                 clear()
             }
             else
             {
                 result = number1 / number2
-                console.log(result)
+                display.innerHTML = result
                 break
             }
     }
@@ -93,12 +93,14 @@ function pickNumber(event)
     if (operator === null) 
     {
         number1 = number1 * 10 + pickedNumber
+        display.innerHTML = number1
         operatorButtons.disabled = false
     } 
 
     else 
     {
         number2 = number2 * 10 + pickedNumber
+        display.innerHTML = number2
         equalButton.disabled = false
     }
 }
