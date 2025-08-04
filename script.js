@@ -1,6 +1,8 @@
 // dodaj back
 // dodaj negativne brojeve 
 // dodaj decimalne brojeve
+// da radi na tastaturu
+// ogranici decimale
 
 const equalButton = document.getElementById("equal")
 const numberButtons = document.querySelectorAll(".number")
@@ -12,7 +14,8 @@ let number1 = 0
 let number2 = 0
 let operator = null
 let result = 0
-operatorButtons.disabled = true
+operatorButtons.forEach(button => {
+    button.disabled = true})
 equalButton.disabled = true
 
 
@@ -43,8 +46,11 @@ function clear()
     number2 = 0
     operator = null
     result = null
-    operatorButtons.disabled = true
+    operatorButtons.forEach(button => {
+        button.disabled = true})
     equalButton.disabled = true
+    numberButtons.forEach(button => {
+        button.disabled = false})
     display.innerHTML = ""
 }
 
@@ -71,7 +77,15 @@ function operate()
             if (number2 === 0)
             {
                 display.innerHTML = "Error"
-                clear()
+                number1 = 0
+                number2 = 0
+                operator = null
+                result = null
+                operatorButtons.forEach(button => {
+                    button.disabled = true})
+                equalButton.disabled = true
+                numberButtons.forEach(button => {
+                    button.disabled = false})
             }
             else
             {
@@ -82,6 +96,7 @@ function operate()
     }
     number1 = result
     number2 = 0
+    operator = null
     equalButton.disabled = true
 }
 
@@ -94,7 +109,8 @@ function pickNumber(event)
     {
         number1 = number1 * 10 + pickedNumber
         display.innerHTML = number1
-        operatorButtons.disabled = false
+        operatorButtons.forEach(button => {
+            button.disabled = false})
     } 
 
     else 
