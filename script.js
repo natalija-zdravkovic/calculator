@@ -2,7 +2,6 @@
 // dodaj negativne brojeve 
 // dodaj decimalne brojeve
 // da radi na tastaturu
-// ogranici decimale
 
 const equalButton = document.getElementById("equal")
 const numberButtons = document.querySelectorAll(".number")
@@ -60,17 +59,17 @@ function operate()
     {
         case "add":
             result = number1 + number2
-            display.innerHTML = result
+            display.innerHTML = parseFloat(result.toFixed(8))
             break
 
         case "substract":
             result = number1 - number2
-            display.innerHTML = result
+            display.innerHTML = parseFloat(result.toFixed(8))
             break
 
         case "multiply":
             result = number1 * number2
-            display.innerHTML = result
+            display.innerHTML = parseFloat(result.toFixed(8))
             break
 
         case "divide":
@@ -90,7 +89,7 @@ function operate()
             else
             {
                 result = number1 / number2
-                display.innerHTML = result
+                display.innerHTML = parseFloat(result.toFixed(8))
                 break
             }
     }
@@ -107,17 +106,34 @@ function pickNumber(event)
 
     if (operator === null) 
     {
-        number1 = number1 * 10 + pickedNumber
-        display.innerHTML = number1
-        operatorButtons.forEach(button => {
+        if (number1 < 100000000)
+        {
+            number1 = number1 * 10 + pickedNumber
+            display.innerHTML = number1
+            operatorButtons.forEach(button => {
             button.disabled = false})
+        }
+        else
+        {
+            numberButtons.forEach(button => {
+                button.disabled = false})
+        }
+
     } 
 
     else 
     {
-        number2 = number2 * 10 + pickedNumber
-        display.innerHTML = number2
-        equalButton.disabled = false
+        if (number2 < 100000000)
+        {
+            number2 = number2 * 10 + pickedNumber
+            display.innerHTML = number2
+            equalButton.disabled = false
+        }
+        else
+        {
+            numberButtons.forEach(button => {
+                button.disabled = false})
+        }
     }
 }
 
