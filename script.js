@@ -31,12 +31,67 @@ operatorButtons.forEach(button =>
 {
     button.addEventListener("click", function () 
     {
-        if (operator !== null && number2 !== 0) 
+        setOperator(button.dataset.operator)
+    })
+})
+
+function handleNumberInput(pickedNumber) {
+    if (operator === null) {
+        if (number1 < 100000000) {
+            number1 = number1 * 10 + pickedNumber
+            display.innerHTML = number1
+            operatorButtons.forEach(button => {
+                button.disabled = false
+            })
+        }
+    } else {
+        if (number2 < 100000000) {
+            number2 = number2 * 10 + pickedNumber
+            display.innerHTML = number2
+            equalButton.disabled = false
+        }
+    }
+}
+
+function setOperator(op)
+{
+    if (operator !== null && number2 !== 0) 
         {
             operate()
         }
-        operator = button.dataset.operator
-    })
+        operator = op
+}
+
+document.addEventListener('keydown', function(event) {
+    const key = event.key
+
+    if (/[0-9]/.test(key)) {
+        handleNumberInput(parseInt(key))
+    }
+
+    if (key === 'Escape' || key === 'Delete') {
+        clear()
+    }
+
+    if (key === '=' || key === 'Enter') {
+        operate()
+    }
+
+    if (key === '+') {
+        setOperator('add')
+    }
+
+    if (key === '-') {
+        setOperator('substract')
+    }
+
+    if (key === '*') {
+        setOperator('multiply')
+    }
+
+    if (key === '/') {
+        setOperator('divide')
+    }
 })
 
 function clear() 
@@ -111,39 +166,7 @@ function operate()
 function pickNumber(event) 
 {
     const pickedNumber = parseInt(event.target.dataset.value)
-    console.log(pickedNumber)
-
-    if (operator === null) 
-    {
-        if (number1 < 100000000)
-        {
-            number1 = number1 * 10 + pickedNumber
-            display.innerHTML = number1
-            operatorButtons.forEach(button => {
-            button.disabled = false})
-        }
-        else
-        {
-            numberButtons.forEach(button => {
-                button.disabled = false})
-        }
-
-    } 
-
-    else 
-    {
-        if (number2 < 100000000)
-        {
-            number2 = number2 * 10 + pickedNumber
-            display.innerHTML = number2
-            equalButton.disabled = false
-        }
-        else
-        {
-            numberButtons.forEach(button => {
-                button.disabled = false})
-        }
-    }
+    handleNumberInput(pickedNumber)
 }
 
 
