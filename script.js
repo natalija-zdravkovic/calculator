@@ -55,6 +55,12 @@ function clear()
 
 function operate() 
 {
+    if (operator === null && lastOperator !== null)
+    {
+        operator = lastOperator
+        number2 = lastNumber2
+    }
+
     switch (operator) 
     {
         case "add":
@@ -93,10 +99,13 @@ function operate()
                 break
             }
     }
+
+    lastOperator = operator
+    lastNumber2 = number2
+
     number1 = result
     number2 = 0
     operator = null
-    equalButton.disabled = true
 }
 
 function pickNumber(event) 
