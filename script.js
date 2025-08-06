@@ -1,16 +1,16 @@
-// dodaj back
 // dodaj negativne brojeve 
 // dodaj decimalne brojeve
-// da radi na tastaturu
 
 const equalButton = document.getElementById("equal")
 const numberButtons = document.querySelectorAll(".number")
 const clearButton = document.getElementById("clear")
 const operatorButtons = document.querySelectorAll(".operator")
 const display = document.querySelector(".calculator-display")
+const backButton = document.getElementById("back")
 
 let number1 = 0
 let number2 = 0
+let currentNumber = 0
 let operator = null
 let result = 0
 operatorButtons.forEach(button => {
@@ -35,10 +35,13 @@ operatorButtons.forEach(button =>
     })
 })
 
+backButton.addEventListener("click", back)
+
 function handleNumberInput(pickedNumber) {
     if (operator === null) {
         if (number1 < 100000000) {
             number1 = number1 * 10 + pickedNumber
+            currentNumber = number1
             display.innerHTML = number1
             operatorButtons.forEach(button => {
                 button.disabled = false
@@ -47,6 +50,7 @@ function handleNumberInput(pickedNumber) {
     } else {
         if (number2 < 100000000) {
             number2 = number2 * 10 + pickedNumber
+            currentNumber = number2
             display.innerHTML = number2
             equalButton.disabled = false
         }
@@ -98,6 +102,7 @@ function clear()
 {
     number1 = 0
     number2 = 0
+    currentNumber = 0
     operator = null
     result = null
     operatorButtons.forEach(button => {
@@ -139,6 +144,7 @@ function operate()
                 display.innerHTML = "Error"
                 number1 = 0
                 number2 = 0
+                currentNumber = 0
                 operator = null
                 result = null
                 operatorButtons.forEach(button => {
@@ -159,6 +165,7 @@ function operate()
     lastNumber2 = number2
 
     number1 = result
+    currentNumber = number1
     number2 = 0
     operator = null
 }
@@ -167,6 +174,39 @@ function pickNumber(event)
 {
     const pickedNumber = parseInt(event.target.dataset.value)
     handleNumberInput(pickedNumber)
+}
+
+function back()
+{
+    if (currentNumber !== 0) 
+    {
+        currentNumber = Math.floor(currentNumber / 10)
+
+        if (operator === null)
+        {
+            number1 = currentNumber
+            display.innerHTML = parseFloat(number1.toFixed(8))
+        }
+
+        else 
+        {
+            number2 = currentNumber
+            display.innerHTML = parseFloat(number2.toFixed(8))
+        }
+    }
+
+    if (operator === null && number1 === 0) 
+    {
+        operatorButtons.forEach(button => 
+        {
+            button.disabled = true
+        })
+    }
+
+    if (operator !== null && number2 === 0) 
+    {
+        equalButton.disabled = true
+    }
 }
 
 
