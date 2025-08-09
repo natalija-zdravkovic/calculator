@@ -13,8 +13,9 @@ let number2 = 0
 let currentNumber = 0
 let operator = null
 let result = 0
-operatorButtons.forEach(button => {
-    button.disabled = true})
+let lastOperator = null
+let lastNumber2 = 0
+operatorButtons.forEach(button => {button.disabled = true})
 equalButton.disabled = true
 
 
@@ -37,21 +38,27 @@ operatorButtons.forEach(button =>
 
 backButton.addEventListener("click", back)
 
-function handleNumberInput(pickedNumber) {
-    if (operator === null) {
-        if (number1 < 100000000) {
+function handleNumberInput(pickedNumber) 
+{
+    if (operator === null) 
+    {
+        if (number1 < 100000000) 
+        {
             number1 = number1 * 10 + pickedNumber
             currentNumber = number1
             display.innerHTML = number1
-            operatorButtons.forEach(button => {
-                button.disabled = false
-            })
+            console.log(number1)
+            operatorButtons.forEach(button => {button.disabled = false})
         }
-    } else {
-        if (number2 < 100000000) {
+    } 
+    else 
+    {
+        if (number2 < 100000000) 
+        {
             number2 = number2 * 10 + pickedNumber
             currentNumber = number2
             display.innerHTML = number2
+            console.log(number2)
             equalButton.disabled = false
         }
     }
@@ -66,34 +73,51 @@ function setOperator(op)
         operator = op
 }
 
-document.addEventListener('keydown', function(event) {
+function operatorKeyboard() 
+{
+    return (number1 !== 0 && operator === null)
+}
+
+document.addEventListener('keydown', function(event)
+{
+    if (event.key == 'Enter')
+    {
+        operate()
+        event.preventDefault()
+    }
+})
+
+document.addEventListener('keydown', function(event) 
+{
     const key = event.key
 
-    if (/[0-9]/.test(key)) {
+    if (/[0-9]/.test(key)) 
+    {
         handleNumberInput(parseInt(key))
     }
 
-    if (key === 'Escape' || key === 'Delete') {
+    if (key === 'Escape' || key === 'Delete') 
+    {
         clear()
     }
 
-    if (key === '=' || key === 'Enter') {
-        operate()
-    }
-
-    if (key === '+') {
+    if (key === '+' && operatorKeyboard) 
+    {
         setOperator('add')
     }
 
-    if (key === '-') {
-        setOperator('substract')
+    if (key === '-' && operatorKeyboard) 
+    {
+        setOperator('subtract')
     }
 
-    if (key === '*') {
+    if (key === '*' && operatorKeyboard) 
+    {
         setOperator('multiply')
     }
 
-    if (key === '/') {
+    if (key === '/' && operatorKeyboard) 
+    {
         setOperator('divide')
     }
 })
@@ -104,18 +128,18 @@ function clear()
     number2 = 0
     currentNumber = 0
     operator = null
-    result = null
-    operatorButtons.forEach(button => {
-        button.disabled = true})
+    result = 0
+    operatorButtons.forEach(button => {button.disabled = true})
     equalButton.disabled = true
-    numberButtons.forEach(button => {
-        button.disabled = false})
+    numberButtons.forEach(button => {button.disabled = false})
     display.innerHTML = ""
+    lastOperator = null
+    lastNumber2 = 0
 }
 
 function operate() 
 {
-    if (operator === null && lastOperator !== null)
+    if (operator === null && lastOperator !== null && lastNumber2 !== 0)
     {
         operator = lastOperator
         number2 = lastNumber2
@@ -125,17 +149,14 @@ function operate()
     {
         case "add":
             result = number1 + number2
-            display.innerHTML = parseFloat(result.toFixed(8))
             break
 
-        case "substract":
+        case "subtract":
             result = number1 - number2
-            display.innerHTML = parseFloat(result.toFixed(8))
             break
 
         case "multiply":
             result = number1 * number2
-            display.innerHTML = parseFloat(result.toFixed(8))
             break
 
         case "divide":
@@ -146,20 +167,20 @@ function operate()
                 number2 = 0
                 currentNumber = 0
                 operator = null
-                result = null
-                operatorButtons.forEach(button => {
-                    button.disabled = true})
-                equalButton.disabled = true
-                numberButtons.forEach(button => {
-                    button.disabled = false})
+                result = 0
+                lastOperator = null
+                lastNumber2 = 0
+                operatorButtons.forEach(button => {button.disabled = true})
+                numberButtons.forEach(button => {button.disabled = false})
             }
             else
             {
                 result = number1 / number2
-                display.innerHTML = parseFloat(result.toFixed(8))
-                break
             }
+            break
     }
+    
+    display.innerHTML = parseFloat(result.toFixed(7))
 
     lastOperator = operator
     lastNumber2 = number2
@@ -168,6 +189,9 @@ function operate()
     currentNumber = number1
     number2 = 0
     operator = null
+
+    operatorButtons.forEach(button => {button.disabled = false})
+    numberButtons.forEach(button => {button.disabled = false})
 }
 
 function pickNumber(event) 
@@ -186,12 +210,14 @@ function back()
         {
             number1 = currentNumber
             display.innerHTML = parseFloat(number1.toFixed(8))
+            console.log(result.toFixed(8))
         }
 
         else 
         {
             number2 = currentNumber
             display.innerHTML = parseFloat(number2.toFixed(8))
+            console.log(result.toFixed(8))
         }
     }
 
