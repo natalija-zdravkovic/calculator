@@ -1,4 +1,3 @@
-// dodaj negativne brojeve 
 // dodaj decimalne brojeve
 
 const equalButton = document.getElementById("equal")
@@ -7,6 +6,7 @@ const clearButton = document.getElementById("clear")
 const operatorButtons = document.querySelectorAll(".operator")
 const display = document.querySelector(".calculator-display")
 const backButton = document.getElementById("back")
+const signChangeButton = document.getElementById("negate")
 
 let number1 = 0
 let number2 = 0
@@ -38,6 +38,8 @@ operatorButtons.forEach(button =>
 
 backButton.addEventListener("click", back)
 
+signChangeButton.addEventListener("click", negate)
+
 function handleNumberInput(pickedNumber) 
 {
     if (operator === null) 
@@ -53,7 +55,7 @@ function handleNumberInput(pickedNumber)
     } 
     else 
     {
-        if (number2 < 100000000) 
+        if (number2 < 10000000) 
         {
             number2 = number2 * 10 + pickedNumber
             currentNumber = number2
@@ -209,15 +211,15 @@ function back()
         if (operator === null)
         {
             number1 = currentNumber
-            display.innerHTML = parseFloat(number1.toFixed(8))
-            console.log(result.toFixed(8))
+            display.innerHTML = parseFloat(number1.toFixed(7))
+            console.log(result.toFixed(7))
         }
 
         else 
         {
             number2 = currentNumber
-            display.innerHTML = parseFloat(number2.toFixed(8))
-            console.log(result.toFixed(8))
+            display.innerHTML = parseFloat(number2.toFixed(7))
+            console.log(result.toFixed(7))
         }
     }
 
@@ -235,5 +237,19 @@ function back()
     }
 }
 
+function negate()
+{
+    if (currentNumber === number1)
+    {
+        number1 *= (-1)
+        display.innerHTML = parseFloat(number1.toFixed(7))
+    }
+
+    else if (currentNumber === number2)
+    {
+        number2 *= (-1)
+        display.innerHTML = parseFloat(number2.toFixed(7))
+    }   
+}
 
 
