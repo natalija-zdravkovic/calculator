@@ -1,5 +1,3 @@
-// dodaj decimalne brojeve
-
 const equalButton = document.getElementById("equal")
 const numberButtons = document.querySelectorAll(".number")
 const clearButton = document.getElementById("clear")
@@ -7,6 +5,7 @@ const operatorButtons = document.querySelectorAll(".operator")
 const display = document.querySelector(".calculator-display")
 const backButton = document.getElementById("back")
 const signChangeButton = document.getElementById("negate")
+const decimalButton = document.getElementById("decimal-point")
 
 let number1 = 0
 let number2 = 0
@@ -15,6 +14,8 @@ let operator = null
 let result = 0
 let lastOperator = null
 let lastNumber2 = 0
+let decimal = false
+let decimalFactor = 1
 operatorButtons.forEach(button => {button.disabled = true})
 equalButton.disabled = true
 
@@ -40,31 +41,52 @@ backButton.addEventListener("click", back)
 
 signChangeButton.addEventListener("click", negate)
 
+decimalButton.addEventListener("click", decimalPoint)
+
 function handleNumberInput(pickedNumber) 
 {
     if (operator === null) 
     {
-        if (number1 < 100000000) 
+        if (!decimal)
         {
-            number1 = number1 * 10 + pickedNumber
-            currentNumber = number1
-            display.innerHTML = number1
-            console.log(number1)
-            operatorButtons.forEach(button => {button.disabled = false})
+            if (number1 < 100000000)
+            {
+                number1 = number1 * 10 + pickedNumber
+            }
         }
-    } 
-    else 
-    {
-        if (number2 < 10000000) 
+
+        else
         {
-            number2 = number2 * 10 + pickedNumber
-            currentNumber = number2
-            display.innerHTML = number2
-            console.log(number2)
-            equalButton.disabled = false
+            decimalFactor *= 0.1
+            number1 = parseFloat((number1 + pickedNumber * decimalFactor).toFixed(7))
         }
+        currentNumber = number1
+        display.innerHTML = parseFloat(number1.toFixed(7)).toString()
+        console.log(number1)
+        operatorButtons.forEach(button => {button.disabled = false})
     }
-}
+    
+    else
+    {
+        if (!decimal)
+        {
+            if (number2 < 100000000)
+            {
+                number2 = number2 * 10 + pickedNumber
+            }
+        }
+
+        else
+        {
+            decimalFactor *= 0.1
+            number2 = parseFloat((number2 + pickedNumber * decimalFactor).toFixed(7))
+        }
+
+        currentNumber = number2
+        display.innerHTML = parseFloat(number2.toFixed(7)).toString()
+        equalButton.disabled = false
+    }
+} 
 
 function setOperator(op)
 {
@@ -73,21 +95,14 @@ function setOperator(op)
             operate()
         }
         operator = op
+        decimal = false
+        decimalFactor = 1
 }
 
 function operatorKeyboard() 
 {
     return (number1 !== 0 && operator === null)
 }
-
-document.addEventListener('keydown', function(event)
-{
-    if (event.key == 'Enter')
-    {
-        operate()
-        event.preventDefault()
-    }
-})
 
 document.addEventListener('keydown', function(event) 
 {
@@ -122,6 +137,22 @@ document.addEventListener('keydown', function(event)
     {
         setOperator('divide')
     }
+
+    if (key === 'Enter')
+    {
+        operate()
+        event.preventDefault()
+    }
+
+    if (key === "~")
+    {
+        negate()
+    }
+
+    if (key === '.' || key === ',')
+    {
+        decimalPoint()
+    }
 })
 
 function clear() 
@@ -131,6 +162,8 @@ function clear()
     currentNumber = 0
     operator = null
     result = 0
+    decimal = false
+    decimalFactor = 1
     operatorButtons.forEach(button => {button.disabled = true})
     equalButton.disabled = true
     numberButtons.forEach(button => {button.disabled = false})
@@ -190,7 +223,9 @@ function operate()
     number1 = result
     currentNumber = number1
     number2 = 0
+    decimalFactor = 1
     operator = null
+    decimal = false
 
     operatorButtons.forEach(button => {button.disabled = false})
     numberButtons.forEach(button => {button.disabled = false})
@@ -204,31 +239,31 @@ function pickNumber(event)
 
 function back()
 {
-    if (currentNumber !== 0) 
+    if (display.innerHTML !== "") 
     {
-        currentNumber = Math.floor(currentNumber / 10)
-
-        if (operator === null)
+        display.innerHTML = display.innerHTML.slice(0, -1)
+        if (display.innerHTML === "" || display.innerHTML === "-") 
         {
-            number1 = currentNumber
-            display.innerHTML = parseFloat(number1.toFixed(7))
-            console.log(result.toFixed(7))
+            currentNumber = 0
+        } 
+        else 
+        {
+            currentNumber = parseFloat(display.innerHTML)
         }
 
+        if (operator === null) 
+        {
+            number1 = currentNumber
+        } 
         else 
         {
             number2 = currentNumber
-            display.innerHTML = parseFloat(number2.toFixed(7))
-            console.log(result.toFixed(7))
         }
     }
 
     if (operator === null && number1 === 0) 
     {
-        operatorButtons.forEach(button => 
-        {
-            button.disabled = true
-        })
+        operatorButtons.forEach(button => {button.disabled = true})
     }
 
     if (operator !== null && number2 === 0) 
@@ -252,4 +287,13 @@ function negate()
     }   
 }
 
+function decimalPoint()
+{
+    if (!decimal)
+    {
+        display.innerHTML += "."
+        decimal = true
+        decimalFactor = 1
+    }
 
+}
