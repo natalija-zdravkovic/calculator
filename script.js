@@ -207,6 +207,7 @@ function operate()
                 lastNumber2 = 0
                 operatorButtons.forEach(button => {button.disabled = true})
                 numberButtons.forEach(button => {button.disabled = false})
+                return 
             }
             else
             {
@@ -295,5 +296,4 @@ function decimalPoint()
         decimal = true
         decimalFactor = 1
     }
-
 }
